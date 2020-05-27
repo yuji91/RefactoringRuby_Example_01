@@ -1,10 +1,6 @@
 class Governor
   def judge(target)
-    if mitsu?(target)
-      :mitsudesu
-    else
-      :notmitsudesu
-    end
+    mitsu?(target) ? :mitsudesu : :notmitsudesu
   end
 
   private
