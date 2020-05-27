@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   # 中央値と平均値以上はA, 中央値以上はB, それ以外はC
   def rank
-    if self.score >= median_score && self.score >= average_score
+    if score >= median_score && score >= average_score
       return :A
     elsif self.score >= median_score
       return :B
@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   # 中央値と平均値の半分以下の点数は落第
   def failed?
-    if self.score <= median_score.div(2) && self.score <= average_score.div(2)
+    if score <= median_score.div(2) && score <= average_score.div(2)
       true
     else
       false
