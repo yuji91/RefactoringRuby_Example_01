@@ -1,11 +1,7 @@
 class Order < ActiveRecord::Base
   def self.monthly_sales
-    result = 0
-    self.monthly.each do |order|
-      result += order.sales - order.cost
-    end
-    return result
-  end 
+    self.monthly.inject(0) { |result, order| result += (order.sales - order.cost) }
+  end
 
   scope :monthly, -> { where(created_at: Time.now.all_month) }
 end
