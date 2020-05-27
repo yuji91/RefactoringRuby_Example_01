@@ -6,16 +6,12 @@ class Payment < ActiveRecord::Base
     add_tax_to_price
     if has_coupon?
       coupon_price
+    elsif invited?
+      invited_price
+    elsif in_time_sale?
+      time_sale_price
     else
-      if invited?
-        invited_price
-      else
-        if in_time_sale?
-          time_sale_price
-        else
-          normal_price
-        end
-      end
+      normal_price
     end
   end
 
