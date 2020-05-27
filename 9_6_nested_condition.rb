@@ -3,8 +3,7 @@ class Payment < ActiveRecord::Base
   TIME_SALE_END = Time.now
 
   def price
-    # add_tax_to_price
-    self.base_price += base_price * 0.1
+    add_tax_to_price
     if self.coupon_code.present?
       self.base_price - 10000
     else
@@ -21,6 +20,10 @@ class Payment < ActiveRecord::Base
   end
 
   private
+
+  def add_tax_to_price
+    self.base_price += base_price * 0.1
+  end
 
   def normal_price
     self.base_price
