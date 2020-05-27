@@ -18,7 +18,7 @@ class Governor
   end
 
   def missetsu?(target)
-    target.is_each_touchable == true
+    target.is_each_touchable
   end
 end
 
