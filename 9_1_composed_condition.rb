@@ -10,7 +10,19 @@ class Governor
   private
 
   def mitsu?(target)
-    target.air_vent_count.zero? || target.refresh_air_time_per_hour < 2 || target.people_count >= 5 || target.is_each_touchable == true || target.social_distance_meter < 2
+    mippei?(target) || missyuu?(target) || missetsu?(target) || target.social_distance_meter < 2
+  end
+
+  def mippei?(target)
+    target.air_vent_count.zero? || target.refresh_air_time_per_hour < 2
+  end
+
+  def missyuu?(target)
+    target.people_count >= 5
+  end
+
+  def missetsu?(target)
+    target.is_each_touchable == true
   end
 end
 
