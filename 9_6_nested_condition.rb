@@ -14,15 +14,15 @@ class Payment < ActiveRecord::Base
   private
 
   def has_coupon?
-    self.coupon_code.present?
+    coupon_code.present?
   end
 
   def invited?
-    self.invited_user_id.present?
+    invited_user_id.present?
   end
 
   def in_time_sale?
-    self.period >= TIME_SALE_START && self.period <= TIME_SALE_END
+    period >= TIME_SALE_START && period <= TIME_SALE_END
   end
 
   def add_tax_to_price
@@ -30,7 +30,7 @@ class Payment < ActiveRecord::Base
   end
 
   def coupon_price
-    self.base_price - 10000
+    base_price - 10000
   end
 
   def invited_price
@@ -42,7 +42,7 @@ class Payment < ActiveRecord::Base
   end
 
   def normal_price
-    self.base_price
+    base_price
   end
 end
 
