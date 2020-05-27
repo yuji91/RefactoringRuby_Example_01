@@ -1,10 +1,16 @@
 class Governor
   def judge(target)
-    if target.air_vent_count.zero? || target.refresh_air_time_per_hour < 2 || target.people_count >= 5 || target.is_each_touchable == true || target.social_distance_meter < 2 
+    if mitsu?(target)
       :mitsudesu
     else
       :notmitsudesu
     end
+  end
+
+  private
+
+  def mitsu?(target)
+    target.air_vent_count.zero? || target.refresh_air_time_per_hour < 2 || target.people_count >= 5 || target.is_each_touchable == true || target.social_distance_meter < 2
   end
 end
 
