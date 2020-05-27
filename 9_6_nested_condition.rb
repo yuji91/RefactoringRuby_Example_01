@@ -5,13 +5,13 @@ class Payment < ActiveRecord::Base
   def price
     add_tax_to_price
     if self.coupon_code.present?
-      self.base_price - 10000
+      coupon_price
     else
       if self.invited_user_id.present?
-        self.base_price -= base_price * 0.2
+        invited_price
       else
         if self.period >= TIME_SALE_START && self.period <= TIME_SALE_END
-          self.base_price -= base_price * 0.1
+          time_sale_price
         else
           normal_price
         end
@@ -23,6 +23,18 @@ class Payment < ActiveRecord::Base
 
   def add_tax_to_price
     self.base_price += base_price * 0.1
+  end
+
+  def coupon_price
+    self.base_price - 10000
+  end
+
+  def invited_price
+    self.base_price -= base_price * 0.2
+  end
+
+  def time_sale_price
+    self.base_price -= base_price * 0.1
   end
 
   def normal_price
