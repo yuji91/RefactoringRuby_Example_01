@@ -1,12 +1,5 @@
 class User < ActiveRecord::Base
   # このコードのリファクタリングでは、spec/8_16_spec.rbも変更してください。
-  def median_score
-    User.pluck(:score).median
-  end
-
-  def average_score
-    User.pluck(:score).average
-  end
 
   # 中央値と平均値以上はA, 中央値以上はB, それ以外はC
   def rank
@@ -26,6 +19,16 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+
+  private
+
+  def median_score
+    User.pluck(:score).median
+  end
+
+  def average_score
+    User.pluck(:score).average
   end
 end
 
