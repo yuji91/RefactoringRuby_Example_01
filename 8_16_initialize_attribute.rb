@@ -24,11 +24,11 @@ class User < ActiveRecord::Base
   private
 
   def median_score
-    User.pluck(:score).median
+    @median_score ||= User.pluck(:score).median
   end
 
   def average_score
-    User.pluck(:score).average
+    @average_score ||= User.pluck(:score).average
   end
 end
 
