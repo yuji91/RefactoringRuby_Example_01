@@ -1,29 +1,20 @@
 class Payment < ActiveRecord::Base
   TIME_SALE_START = Time.now.prev_week
   TIME_SALE_END = Time.now
+  TAX_RATE = 0.1
+  INVITATION_DISCOUNT_RATE = 0.2
+  TIME_SALE_DISCOUNT_RATE = 0.1
+  COUPON_PRICE = 10_000
 
   def price
     # add_tax_to_price
-    self.base_price += base_price * 0.1
-    if self.coupon_code.present?
-      self.base_price - 10000
-    else
-      if self.invited_user_id.present?
-        self.base_price -= base_price * 0.2
-      else
-        if self.period >= TIME_SALE_START && self.period <= TIME_SALE_END
-          self.base_price -= base_price * 0.1
-        else
-          normal_price
-        end
-      end
-    end
-  end
+    calculated_price = base_price * (1 + TAX_RATE)
 
-  private
+    return calculated_price - COUPON_PRICE if coupon_code.present?
+    return calculated_price - calculated_price * INVITATION_DISCOUNT_RATE if invited_user_id?
+    return calculated_price - calculated_price * TIME_SALE_DISCOUNT_RATE if period >= TIME_SALE_START && period <= TIME_SALE_END
 
-  def normal_price
-    self.base_price
+    calculated_price
   end
 end
 
